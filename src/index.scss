@@ -1,0 +1,220 @@
+// ! breakpoints
+$breakpoints: ("mobile": 250px, "mini-tablet": 481px, "tablet": 768px, "laptop": 1025px, "tv": 1281px);
+
+@mixin mobile {
+    @media (min-width: map-get($breakpoints, "mobile")) {
+        @content
+    }
+}
+
+;
+
+@mixin mini-tablet {
+    @media (min-width: map-get($breakpoints, "mini-tablet")) {
+        @content
+    }
+}
+
+;
+
+@mixin tablet {
+    @media (min-width: map-get($breakpoints, "tablet")) {
+        @content
+    }
+}
+
+;
+
+@mixin laptop {
+    @media (min-width: map-get($breakpoints, "laptop")) {
+        @content
+    }
+}
+
+;
+
+@mixin tv {
+    @media (min-width: map-get($breakpoints, "tv")) {
+        @content
+    }
+}
+
+;
+
+@mixin breakpoint($bp:0) {
+    @media (min-width: $bp) {
+        @content
+    }
+}
+
+;
+
+// ? reuseable functions
+@mixin flex($align:center, $direction:row, $justify:center) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $direction;
+}
+
+
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'DM Sans',
+        sans-serif;
+}
+
+body {
+    min-height: 100%;
+
+    .container {
+        header {
+
+            .logo {
+                width: 100%;
+                background-color: rgb(41, 41, 41);
+                height: 67px;
+                @include flex;
+                color: white;
+
+                span {
+                    border: 1px solid;
+                    @include flex;
+                    height: 33.58px;
+                    width: 108px;
+
+                    img {
+                        max-width: 70%;
+                    }
+
+                    @include tablet() {
+                        height: 60px;
+                        width: 193px;
+
+                        img {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                @include tablet() {
+                    height: 140px;
+                }
+
+                @include laptop() {
+                    @include flex($justify:flex-start);
+                    padding-left: 5%;
+                }
+            }
+
+            .hero {
+                width: 100%;
+                height: 257px;
+                @include flex;
+                background-image: url("./assets/people.jpeg");
+                background-position: center;
+                background-size: cover;
+
+                h2 {
+                    color: white;
+                    font-size: 1.75rem;
+                    font-weight: 700;
+                    width: 273px;
+                    text-align: center;
+                    height: 72px;
+
+                    @include tablet() {
+                        font-size: 4.5rem;
+                        width: 490px;
+                        height: 282px;
+                    }
+                }
+
+                @include tablet() {
+                    height: 550px;
+                }
+
+                @include laptop() {
+                    @include flex($justify:flex-start);
+                    padding-left: 5%;
+
+                    h2 {
+                        text-align: left;
+                    }
+                }
+            }
+        }
+
+        main {
+            .search {
+                @include flex($direction:column, $align:flex-start);
+                padding: 30px;
+                gap: 5px;
+
+                label {
+                    font-size: 1rem;
+                    font-weight: 400;
+                }
+
+                input {
+                    width: 100%;
+                    height: 34px;
+                    border: 1px solid black;
+                    outline: none;
+                    font-weight: 400;
+                    padding: 10px;
+                }
+
+                @include tablet() {
+                    label {
+                        font-size: 1.5rem;
+                    }
+
+                    input {
+                        height: 54px;
+                        font-size: 1.5rem;
+                    }
+                }
+            }
+
+            .movies {
+                @include flex($direction:column, $align:none, $justify:none);
+                overflow-x: auto;
+                padding: 30px;
+                gap: 10px;
+
+                &:last-of-type {
+                    margin-bottom: 50px;
+                }
+
+                .movie-container {
+                    display: flex;
+                    overflow-x: auto;
+                    gap: 10px;
+
+                    div {
+                        border-radius: 12px;
+                        min-width: 200px;
+                        height: 200px;
+                        @include flex;
+                        overflow: hidden;
+
+                        img {
+                            min-height: 100%;
+                            max-width: 100%;
+                            object-fit: fill;
+                            display: block;
+                        }
+
+                        @include tablet() {
+                            min-width: 300px;
+                            height: 300px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
